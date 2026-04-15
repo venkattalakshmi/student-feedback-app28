@@ -14,7 +14,10 @@ feedback_list = []
 def home(request: Request):
     return templates.TemplateResponse(
         "index.html",
-        {"request": request, "feedbacks": feedback_list}
+        {
+            "request": request,
+            "feedbacks": feedback_list
+        }
     )
 
 @app.post("/submit")
