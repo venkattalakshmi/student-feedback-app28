@@ -6,9 +6,8 @@ import os
 app = FastAPI()
 
 # Correct template path
-templates = Jinja2Templates(
-    directory=os.path.join(os.path.dirname(__file__), "templates")
-)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 
 # Temporary storage
 feedback_list = []
@@ -16,8 +15,8 @@ feedback_list = []
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
     return templates.TemplateResponse(
-        "index.html",
-        {"request": request, "feedbacks": feedback_list}
+        name="index.html",
+        context={"request": request, "feedbacks": feedback_list}
     )
 
 @app.post("/submit")
