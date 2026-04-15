@@ -5,9 +5,11 @@ import os
 
 app = FastAPI()
 
+# Correct template path
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 
+# Temporary storage
 feedback_list = []
 
 @app.get("/", response_class=HTMLResponse)
@@ -22,5 +24,8 @@ def home(request: Request):
 
 @app.post("/submit")
 def submit(name: str = Form(...), feedback: str = Form(...)):
-    feedback_list.append({"name": name, "feedback": feedback})
+    feedback_list.append({
+        "name": name,
+        "feedback": feedback
+    })
     return RedirectResponse(url="/", status_code=303)
