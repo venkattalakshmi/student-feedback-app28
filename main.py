@@ -1,19 +1,24 @@
-from fastapi import FastAPI, Form
-from fastapi.responses import HTMLResponse
+from fastapi import FastAPI, Form, Request
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
-from fastapi.requests import Request
+import os
 
 app = FastAPI()
-templates = Jinja2Templates(directory="templates")
 
-# Temporary storage (list)
+# Correct template path
+templates = Jinja2Templates(
+    directory=os.path.join(os.path.dirname(__file__), "templates")
+)
+
+# Temporary storage
 feedback_list = []
 
 @app.get("/", response_class=HTMLResponse)
 def home(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request, "feedbacks": feedback_list})
-
-from fastapi.responses import RedirectResponse
+    return templates.TemplateResponse(
+        "index.html",
+        {"request": request, "feedbacks": feedback_list}
+    )
 
 @app.post("/submit")
 def submit(name: str = Form(...), feedback: str = Form(...)):
