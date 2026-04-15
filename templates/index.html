@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Feedback</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            text-align: center;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        input, textarea {
+            padding: 10px;
+            margin: 10px;
+            width: 300px;
+        }
+        button {
+            padding: 10px 20px;
+            background: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .card {
+            background: white;
+            padding: 10px;
+            margin: 10px auto;
+            width: 300px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Student Feedback App 🚀</h1>
+
+    <form action="/submit" method="post">
+        <input type="text" name="name" placeholder="Enter your name" required><br>
+        <textarea name="feedback" placeholder="Enter feedback" required></textarea><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>All Feedbacks</h2>
+
+    {% for item in feedbacks %}
+    <div class="card">
+        <strong>{{ item.name }}</strong>
+        <p>{{ item.feedback }}</p>
+    </div>
+    {% endfor %}
+</div>
+
+</body>
+</html>
